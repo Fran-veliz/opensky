@@ -1,0 +1,6 @@
+pandas>=2.2
+pyarrow>=14.0
+duckdb>=1.0
+numpy>=1.26
+jupyter>=1.0
+streamlit>=1.38
