@@ -1,0 +1,17 @@
+flowchart LR
+    A["data/raw\nParquet OpenSky Network"] --> B["Extracción\nsrc/extraccion/extractor.py"]
+    B --> C["Transformación\nsrc/transformacion/transformador.py\n(limpieza + métricas de trayectoria)"]
+    C --> D["Staging\ndata/staging/vuelos_limpios.parquet"]
+    D --> E["Carga\nsrc/load/cargador.py"]
+    E --> F[("Warehouse DuckDB\ndata/processed/atfm_warehouse.duckdb")]
+    F --> G["KPIs SQL\nsql/dml/*.sql"]
+    G --> H["Notebooks\nnotebooks/*.ipynb"]
+    G --> I["Dashboard interactivo\ndashboards/app.py (Streamlit)"]
+
+    classDef storage fill:#fde9d9,stroke:#c97a2b,stroke-width:1px;
+    classDef process fill:#dbe9f4,stroke:#2b6cb0,stroke-width:1px;
+    classDef output fill:#e1f0e1,stroke:#2f7a3d,stroke-width:1px;
+
+    class A,D,F storage
+    class B,C,E,G process
+    class H,I output

@@ -1,0 +1,40 @@
+erDiagram
+    DIM_FECHA {
+        bigint fecha_id PK
+        date fecha
+        int anio
+        int mes
+        int dia
+        int dia_semana
+        string nombre_dia
+        boolean es_fin_de_semana
+    }
+    DIM_AEROPUERTO {
+        bigint aeropuerto_id PK
+        string codigo_icao
+        double latitud_aprox
+        double longitud_aprox
+        bigint num_vuelos_observados
+    }
+    FACT_VUELO {
+        bigint vuelo_id PK
+        string icao24
+        string callsign
+        bigint fecha_id FK
+        bigint aeropuerto_origen_id FK
+        bigint aeropuerto_destino_id FK
+        timestamp hora_salida
+        timestamp hora_llegada
+        double duracion_minutos
+        double distancia_recorrida_km
+        double distancia_directa_km
+        double altitud_max_m
+        double altitud_promedio_m
+        int num_puntos_track
+        string calidad_origen
+        string calidad_destino
+    }
+
+    DIM_FECHA ||--o{ FACT_VUELO : "fecha_id"
+    DIM_AEROPUERTO ||--o{ FACT_VUELO : "aeropuerto_origen_id"
+    DIM_AEROPUERTO ||--o{ FACT_VUELO : "aeropuerto_destino_id"
